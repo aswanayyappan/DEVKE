@@ -1,0 +1,159 @@
+{
+  "id": "database.storage.sqlite",
+  "title": "SQLite",
+  "slug": "sqlite",
+  "type": "library",
+  "language": "SQL",
+  "runtime": "Embedded Engine",
+  "categories": [
+    "Databases and Storage",
+    "Relational Databases",
+    "Embedded Storage",
+    "Full-Text Search"
+  ],
+  "package": {
+    "name": "sqlite3",
+    "manager": "Universal",
+    "installation": "Built-in to Python (sqlite3), Node.js 22+ (node:sqlite), Android, iOS, and macOS",
+    "repository_url": "https://github.com/sqlite/sqlite",
+    "documentation_url": "https://www.sqlite.org/docs.html",
+    "license": "Public Domain"
+  },
+  "documentation": {
+    "overview": "SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine. It is the most used database engine in the world, embedded in billions of mobile devices and applications.",
+    "purpose": "Local application storage, offline mobile persistence, embedded device databases, and lightweight desktop application storage without server management.",
+    "installation": "Native binary or built-in engine runtime. In Node.js: `import { DatabaseSync } from 'node:sqlite';`",
+    "configuration": "Optimal performance requires enabling Write-Ahead Logging (WAL) and foreign keys: `PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA synchronous = NORMAL;`",
+    "security_considerations": "Never concatenate unsanitized user strings into SQL queries. Always use parameterized statements (`?` or named parameters) to prevent SQL injection.",
+    "error_handling": "Handle `SQLITE_BUSY` when concurrent writes contend for the database lock by setting `PRAGMA busy_timeout = 5000;`"
+  },
+  "symbols": [
+    {
+      "id": "database.storage.sqlite.pragma.wal",
+      "document_id": "database.storage.sqlite",
+      "name": "PRAGMA journal_mode = WAL",
+      "kind": "constant",
+      "syntax": "PRAGMA journal_mode = WAL;",
+      "return_type": "string",
+      "description": "Switches SQLite from rollback journal mode to Write-Ahead Logging (WAL), allowing concurrent readers while a write transaction is active.",
+      "is_static": true,
+      "is_async": false,
+      "is_deprecated": false,
+      "parameters": [],
+      "sort_order": 1
+    },
+    {
+      "id": "database.storage.sqlite.fts5",
+      "document_id": "database.storage.sqlite",
+      "name": "CREATE VIRTUAL TABLE USING fts5",
+      "kind": "function",
+      "syntax": "CREATE VIRTUAL TABLE table_name USING fts5(column1, column2, tokenize='unicode61');",
+      "return_type": "void",
+      "description": "Creates an FTS5 full-text search virtual table enabling BM25 ranked fast text search queries.",
+      "is_static": true,
+      "is_async": false,
+      "is_deprecated": false,
+      "parameters": [
+        {
+          "id": "database.storage.sqlite.fts5.param.tokenize",
+          "symbol_id": "database.storage.sqlite.fts5",
+          "name": "tokenize",
+          "data_type": "string",
+          "default_value": "unicode61",
+          "is_required": false,
+          "is_optional": true,
+          "is_named": true,
+          "description": "Tokenizer strategy, such as unicode61, porter, or trigram.",
+          "sort_order": 1
+        }
+      ],
+      "sort_order": 2
+    }
+  ],
+  "examples": [
+    {
+      "id": "database.storage.sqlite.example.wal",
+      "document_id": "database.storage.sqlite",
+      "symbol_id": "database.storage.sqlite.pragma.wal",
+      "title": "Configuring High-Performance SQLite",
+      "description": "Enabling WAL mode, foreign keys, and busy timeout in Node.js.",
+      "code": "import { DatabaseSync } from 'node:sqlite';\n\nconst db = new DatabaseSync('app.db');\n\n// Configure optimal pragma options\ndb.exec(`\n  PRAGMA journal_mode = WAL;\n  PRAGMA foreign_keys = ON;\n  PRAGMA synchronous = NORMAL;\n  PRAGMA busy_timeout = 5000;\n`);\n\nconsole.log('SQLite configured for high concurrency.');",
+      "language": "javascript",
+      "expected_output": "wal",
+      "source_attribution": "Official SQLite Documentation",
+      "sort_order": 1
+    }
+  ],
+  "pipelines": [
+    {
+      "id": "database.storage.sqlite.pipeline.setup",
+      "document_id": "database.storage.sqlite",
+      "name": "Zero-Downtime SQLite Setup Pipeline",
+      "description": "Step-by-step procedure for initializing production-grade embedded SQLite storage.",
+      "objective": "Prevent database lockouts, protect against data corruption, and ensure relational integrity.",
+      "steps": [
+        {
+          "id": "database.storage.sqlite.pipeline.step.1",
+          "pipeline_id": "database.storage.sqlite.pipeline.setup",
+          "step_number": 1,
+          "title": "Open Database Connection",
+          "explanation": "Instantiate the database connection file handle.",
+          "input_data": "File path string",
+          "output_data": "Database instance",
+          "syntax": "new DatabaseSync(filePath)",
+          "sort_order": 1
+        },
+        {
+          "id": "database.storage.sqlite.pipeline.step.2",
+          "pipeline_id": "database.storage.sqlite.pipeline.setup",
+          "step_number": 2,
+          "title": "Enable Foreign Key Constraints",
+          "explanation": "Foreign key enforcement is disabled by default in SQLite for backward compatibility. Always enable it immediately after opening.",
+          "input_data": "PRAGMA foreign_keys = ON",
+          "output_data": "Relational enforcement active",
+          "syntax": "db.exec('PRAGMA foreign_keys = ON;');",
+          "sort_order": 2
+        },
+        {
+          "id": "database.storage.sqlite.pipeline.step.3",
+          "pipeline_id": "database.storage.sqlite.pipeline.setup",
+          "step_number": 3,
+          "title": "Enable Write-Ahead Logging (WAL)",
+          "explanation": "WAL allows concurrent read operations while writes execute, improving transaction throughput significantly.",
+          "input_data": "PRAGMA journal_mode = WAL",
+          "output_data": "WAL mode activated",
+          "syntax": "db.exec('PRAGMA journal_mode = WAL;');",
+          "sort_order": 3
+        },
+        {
+          "id": "database.storage.sqlite.pipeline.step.4",
+          "pipeline_id": "database.storage.sqlite.pipeline.setup",
+          "step_number": 4,
+          "title": "Set Busy Timeout",
+          "explanation": "Ensure that if a lock collision occurs, the query sleeps and retries for up to 5000ms instead of immediately throwing SQLITE_BUSY.",
+          "input_data": "5000 ms timeout",
+          "output_data": "Auto-retry lock handler",
+          "syntax": "db.exec('PRAGMA busy_timeout = 5000;');",
+          "sort_order": 4
+        }
+      ],
+      "sort_order": 1
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel.sqlite.postgresql",
+      "source_doc_id": "database.storage.sqlite",
+      "target_doc_id": "database.storage.postgresql",
+      "relationship_type": "alternative_to",
+      "description": "PostgreSQL is client-server relational alternative for distributed multi-node infrastructure"
+    }
+  ],
+  "metadata": {
+    "source_url": "https://www.sqlite.org/docs.html",
+    "license": "Public Domain",
+    "documentation_version": "3.45.3",
+    "completeness_status": "complete",
+    "last_verified": "2026-11-19"
+  }
+}

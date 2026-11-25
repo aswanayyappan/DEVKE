@@ -1,0 +1,11 @@
+{
+  "id": "pack.languages.dart",
+  "name": "Dart Language & Async Patterns Pack",
+  "domain": "languages",
+  "technology": "Dart",
+  "version": "3.x",
+  "license": "BSD-3-Clause",
+  "records": [
+    "futures.json"
+  ]
+}

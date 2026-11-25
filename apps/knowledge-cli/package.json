@@ -1,0 +1,23 @@
+{
+  "name": "@udke/knowledge-cli",
+  "version": "1.0.0",
+  "description": "CLI tool for collecting, validating, and indexing documentation",
+  "bin": {
+    "udke": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@udke/document-parser": "*",
+    "@udke/knowledge-schema": "*",
+    "@udke/search-engine": "*",
+    "@udke/source-connectors": "*",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.4.5"
+  }
+}

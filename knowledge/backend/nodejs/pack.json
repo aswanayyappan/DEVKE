@@ -1,0 +1,11 @@
+{
+  "id": "pack.backend.nodejs",
+  "name": "Node.js Complete Reference Pack",
+  "domain": "backend",
+  "technology": "Node.js",
+  "version": "20.x",
+  "license": "MIT",
+  "records": [
+    "argon2.json"
+  ]
+}

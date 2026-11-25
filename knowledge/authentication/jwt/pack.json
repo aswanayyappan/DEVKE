@@ -1,0 +1,11 @@
+{
+  "id": "pack.authentication.jwt",
+  "name": "JSON Web Tokens (JWT) Architecture Pack",
+  "domain": "authentication",
+  "technology": "JWT",
+  "version": "RFC 7519",
+  "license": "IETF",
+  "records": [
+    "jwt.json"
+  ]
+}

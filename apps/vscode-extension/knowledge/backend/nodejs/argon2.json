@@ -1,0 +1,263 @@
+{
+  "id": "nodejs.security.argon2",
+  "title": "Argon2",
+  "slug": "argon2",
+  "type": "library",
+  "language": "JavaScript",
+  "runtime": "Node.js",
+  "categories": [
+    "Backend",
+    "Authentication",
+    "Password Security",
+    "Hashing"
+  ],
+  "package": {
+    "name": "argon2",
+    "manager": "npm",
+    "installation": "npm install argon2",
+    "repository_url": "https://github.com/ranisalt/node-argon2",
+    "documentation_url": "https://github.com/ranisalt/node-argon2#readme",
+    "license": "MIT"
+  },
+  "documentation": {
+    "overview": "Argon2 is the winner of the Password Hashing Competition (PHC). It is a modern, cryptographically secure password hashing algorithm designed to resist GPU-based brute-force attacks and side-channel attacks through memory-hard operations.",
+    "purpose": "Used to hash passwords before storing them in databases, and securely verify login attempts against stored hashes without exposing plaintext passwords.",
+    "installation": "npm install argon2",
+    "configuration": "Configurable options include memoryCost (RAM usage in KiB), timeCost (number of iterations), parallelism (threads), and hashLength.",
+    "security_considerations": "Always prefer Argon2id over Argon2i or Argon2d. Argon2id provides balanced defense against both side-channel timing attacks and GPU cracking hardware.",
+    "error_handling": "Errors thrown by argon2 include invalid parameter configurations or verification failures due to corrupted hash formats."
+  },
+  "symbols": [
+    {
+      "id": "nodejs.security.argon2.hash",
+      "document_id": "nodejs.security.argon2",
+      "name": "argon2.hash",
+      "kind": "function",
+      "syntax": "argon2.hash(plain: string | Buffer, options?: Options): Promise<string>",
+      "return_type": "Promise<string>",
+      "description": "Calculates an encoded Argon2id hash string from a plaintext password string or buffer with an automatically generated cryptographically secure salt.",
+      "is_static": true,
+      "is_async": true,
+      "is_deprecated": false,
+      "parameters": [
+        {
+          "id": "nodejs.security.argon2.hash.plain",
+          "symbol_id": "nodejs.security.argon2.hash",
+          "name": "plain",
+          "data_type": "string | Buffer",
+          "is_required": true,
+          "is_optional": false,
+          "is_named": false,
+          "description": "The plaintext password or binary buffer to hash.",
+          "sort_order": 1
+        },
+        {
+          "id": "nodejs.security.argon2.hash.options",
+          "symbol_id": "nodejs.security.argon2.hash",
+          "name": "options",
+          "data_type": "Options",
+          "default_value": "{ type: argon2id, memoryCost: 65536, timeCost: 3, parallelism: 4 }",
+          "is_required": false,
+          "is_optional": true,
+          "is_named": false,
+          "description": "Optional tuning configuration including memoryCost, timeCost, parallelism, saltLength, and type.",
+          "sort_order": 2
+        }
+      ],
+      "sort_order": 1
+    },
+    {
+      "id": "nodejs.security.argon2.verify",
+      "document_id": "nodejs.security.argon2",
+      "name": "argon2.verify",
+      "kind": "function",
+      "syntax": "argon2.verify(digest: string, plain: string | Buffer, options?: Options): Promise<boolean>",
+      "return_type": "Promise<boolean>",
+      "description": "Verifies whether a plaintext password matches an existing encoded Argon2 hash digest.",
+      "is_static": true,
+      "is_async": true,
+      "is_deprecated": false,
+      "parameters": [
+        {
+          "id": "nodejs.security.argon2.verify.digest",
+          "symbol_id": "nodejs.security.argon2.verify",
+          "name": "digest",
+          "data_type": "string",
+          "is_required": true,
+          "is_optional": false,
+          "is_named": false,
+          "description": "The previously stored encoded Argon2 hash digest string.",
+          "sort_order": 1
+        },
+        {
+          "id": "nodejs.security.argon2.verify.plain",
+          "symbol_id": "nodejs.security.argon2.verify",
+          "name": "plain",
+          "data_type": "string | Buffer",
+          "is_required": true,
+          "is_optional": false,
+          "is_named": false,
+          "description": "The submitted plaintext password to verify against the hash.",
+          "sort_order": 2
+        }
+      ],
+      "sort_order": 2
+    }
+  ],
+  "examples": [
+    {
+      "id": "nodejs.security.argon2.example.register",
+      "document_id": "nodejs.security.argon2",
+      "symbol_id": "nodejs.security.argon2.hash",
+      "title": "Password Hashing on User Registration",
+      "description": "How to generate a secure Argon2id hash when a user registers an account.",
+      "code": "import * as argon2 from 'argon2';\n\nasync function registerUser(password: string): Promise<string> {\n  try {\n    const hash = await argon2.hash(password, {\n      type: argon2.argon2id,\n      memoryCost: 2 ** 16, // 64 MiB\n      timeCost: 3,\n      parallelism: 1,\n    });\n    return hash;\n  } catch (err) {\n    throw new Error(`Password hashing failed: ${err}`);\n  }\n}",
+      "language": "typescript",
+      "expected_output": "$argon2id$v=19$m=65536,t=3,p=1$...",
+      "source_attribution": "Official node-argon2 documentation",
+      "sort_order": 1
+    },
+    {
+      "id": "nodejs.security.argon2.example.verify",
+      "document_id": "nodejs.security.argon2",
+      "symbol_id": "nodejs.security.argon2.verify",
+      "title": "Password Verification on User Login",
+      "description": "How to verify a submitted password against the stored database hash.",
+      "code": "import * as argon2 from 'argon2';\n\nasync function loginUser(submittedPassword: string, storedHash: string): Promise<boolean> {\n  try {\n    return await argon2.verify(storedHash, submittedPassword);\n  } catch (err) {\n    return false;\n  }\n}",
+      "language": "typescript",
+      "expected_output": "true or false",
+      "source_attribution": "Official node-argon2 documentation",
+      "sort_order": 2
+    }
+  ],
+  "pipelines": [
+    {
+      "id": "nodejs.security.argon2.pipeline.registration",
+      "document_id": "nodejs.security.argon2",
+      "name": "Password Registration Pipeline",
+      "description": "Step-by-step cryptographic sequence for onboarding user passwords.",
+      "objective": "Receive, salt, hash, and persist user credentials with optimal memory-hard security.",
+      "steps": [
+        {
+          "id": "nodejs.security.argon2.pipeline.reg.1",
+          "pipeline_id": "nodejs.security.argon2.pipeline.registration",
+          "step_number": 1,
+          "title": "Receive password",
+          "explanation": "Accept raw password from registration input over a secure HTTPS transport. Avoid logging plaintext.",
+          "input_data": "Plaintext password string",
+          "output_data": "Validated string buffer",
+          "syntax": "validatePassword(input: string): boolean",
+          "sort_order": 1
+        },
+        {
+          "id": "nodejs.security.argon2.pipeline.reg.2",
+          "pipeline_id": "nodejs.security.argon2.pipeline.registration",
+          "step_number": 2,
+          "title": "Generate random salt",
+          "explanation": "Argon2 generates a cryptographically secure 16-byte CSPRNG salt automatically if omitted.",
+          "input_data": "Crypto random bytes generator",
+          "output_data": "16-byte random salt",
+          "sort_order": 2
+        },
+        {
+          "id": "nodejs.security.argon2.pipeline.reg.3",
+          "pipeline_id": "nodejs.security.argon2.pipeline.registration",
+          "step_number": 3,
+          "title": "Hash using Argon2id",
+          "explanation": "Execute argon2.hash with memoryCost: 65536 (64 MB), timeCost: 3 iterations, and parallelism: 1.",
+          "input_data": "Plaintext + Salt + Cost parameters",
+          "output_data": "Encoded PHC formatted hash string",
+          "syntax": "argon2.hash(password, options)",
+          "code_example": "const hash = await argon2.hash(password);",
+          "sort_order": 3
+        },
+        {
+          "id": "nodejs.security.argon2.pipeline.reg.4",
+          "pipeline_id": "nodejs.security.argon2.pipeline.registration",
+          "step_number": 4,
+          "title": "Store encoded hash",
+          "explanation": "Save the resulting encoded string into the database credentials table.",
+          "input_data": "Encoded string: $argon2id$v=19$m=65536,t=3,p=1$...",
+          "output_data": "Database record confirmation",
+          "sort_order": 4
+        }
+      ],
+      "sort_order": 1
+    },
+    {
+      "id": "nodejs.security.argon2.pipeline.verification",
+      "document_id": "nodejs.security.argon2",
+      "name": "Password Verification Pipeline",
+      "description": "Step-by-step cryptographic sequence for validating credentials on login.",
+      "objective": "Verify submitted password against stored hash without timing leakage.",
+      "steps": [
+        {
+          "id": "nodejs.security.argon2.pipeline.ver.1",
+          "pipeline_id": "nodejs.security.argon2.pipeline.verification",
+          "step_number": 1,
+          "title": "Receive login password",
+          "explanation": "Extract submitted credentials from authentication request payload.",
+          "input_data": "Submitted password",
+          "output_data": "Password string",
+          "sort_order": 1
+        },
+        {
+          "id": "nodejs.security.argon2.pipeline.ver.2",
+          "pipeline_id": "nodejs.security.argon2.pipeline.verification",
+          "step_number": 2,
+          "title": "Retrieve stored hash",
+          "explanation": "Query the user account in the database and retrieve the stored Argon2 hash digest.",
+          "input_data": "User identifier / email",
+          "output_data": "Stored encoded hash string",
+          "sort_order": 2
+        },
+        {
+          "id": "nodejs.security.argon2.pipeline.ver.3",
+          "pipeline_id": "nodejs.security.argon2.pipeline.verification",
+          "step_number": 3,
+          "title": "Verify password",
+          "explanation": "Call argon2.verify(storedHash, submittedPassword) using constant-time comparison.",
+          "input_data": "Stored hash + Submitted password",
+          "output_data": "Boolean result (true/false)",
+          "syntax": "argon2.verify(storedHash, submittedPassword)",
+          "code_example": "const isValid = await argon2.verify(storedHash, submittedPassword);",
+          "sort_order": 3
+        },
+        {
+          "id": "nodejs.security.argon2.pipeline.ver.4",
+          "pipeline_id": "nodejs.security.argon2.pipeline.verification",
+          "step_number": 4,
+          "title": "Return authentication result",
+          "explanation": "If valid, issue session token or JWT; if invalid, return generic authentication failure.",
+          "input_data": "Boolean validation state",
+          "output_data": "Session token or 401 Unauthorized",
+          "sort_order": 4
+        }
+      ],
+      "sort_order": 2
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel.argon2.bcrypt",
+      "source_doc_id": "nodejs.security.argon2",
+      "target_doc_id": "nodejs.security.bcrypt",
+      "relationship_type": "alternative_to",
+      "description": "Argon2 is modern memory-hard alternative to bcrypt"
+    },
+    {
+      "id": "rel.argon2.jwt",
+      "source_doc_id": "nodejs.security.argon2",
+      "target_doc_id": "nodejs.security.jwt",
+      "relationship_type": "related_to",
+      "description": "JWT tokens are commonly issued after successful Argon2 password verification"
+    }
+  ],
+  "metadata": {
+    "source_url": "https://github.com/ranisalt/node-argon2",
+    "license": "MIT",
+    "documentation_version": "0.40.3",
+    "completeness_status": "complete",
+    "last_verified": "2026-11-19"
+  }
+}

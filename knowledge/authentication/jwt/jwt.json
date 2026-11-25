@@ -1,0 +1,181 @@
+{
+  "id": "authentication.tokens.jwt",
+  "title": "JSON Web Token (JWT)",
+  "slug": "jwt",
+  "type": "concept",
+  "language": "Universal",
+  "runtime": "Cross-Platform",
+  "categories": [
+    "Authentication and Security",
+    "Tokens and Sessions",
+    "Cryptography",
+    "Web Security"
+  ],
+  "package": {
+    "name": "jsonwebtoken",
+    "manager": "npm",
+    "installation": "npm install jsonwebtoken",
+    "repository_url": "https://github.com/auth0/node-jsonwebtoken",
+    "documentation_url": "https://datatracker.ietf.org/doc/html/rfc7519",
+    "license": "MIT"
+  },
+  "documentation": {
+    "overview": "JSON Web Token (JWT) is an open, industry-standard RFC 7519 method for securely representing claims between two parties. Compact, URL-safe, and cryptographically signed using either a secret (HMAC) or a public/private key pair (RSA or ECDSA).",
+    "purpose": "Stateless authentication, authorization claim passing, single sign-on (SSO), and secure data exchange in modern microservices.",
+    "installation": "npm install jsonwebtoken",
+    "configuration": "Configure signing algorithms (RS256, EdDSA, HS256), token expiration (expiresIn), issuer (iss), and audience (aud).",
+    "security_considerations": "Never store sensitive data (passwords, credit cards) in JWT payloads because payloads are only base64url-encoded and can be read by anyone. Always sign with asymmetric algorithms (RS256 or Ed25519) in distributed systems and keep expiration lifetimes short.",
+    "error_handling": "Handle `TokenExpiredError` to prompt client token refresh and `JsonWebTokenError` for signature forgery detection."
+  },
+  "symbols": [
+    {
+      "id": "authentication.tokens.jwt.sign",
+      "document_id": "authentication.tokens.jwt",
+      "name": "jwt.sign",
+      "kind": "function",
+      "syntax": "jwt.sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, options?: SignOptions): string",
+      "return_type": "string",
+      "description": "Signs a payload and returns the compact encoded JWT string with header, payload, and signature components separated by dots.",
+      "is_static": true,
+      "is_async": false,
+      "is_deprecated": false,
+      "parameters": [
+        {
+          "id": "authentication.tokens.jwt.sign.param.payload",
+          "symbol_id": "authentication.tokens.jwt.sign",
+          "name": "payload",
+          "data_type": "object",
+          "is_required": true,
+          "is_optional": false,
+          "is_named": false,
+          "description": "User claims or session metadata to serialize into the token body.",
+          "sort_order": 1
+        },
+        {
+          "id": "authentication.tokens.jwt.sign.param.secret",
+          "symbol_id": "authentication.tokens.jwt.sign",
+          "name": "secretOrPrivateKey",
+          "data_type": "Secret",
+          "is_required": true,
+          "is_optional": false,
+          "is_named": false,
+          "description": "Cryptographic key used to compute the digital signature.",
+          "sort_order": 2
+        }
+      ],
+      "sort_order": 1
+    },
+    {
+      "id": "authentication.tokens.jwt.verify",
+      "document_id": "authentication.tokens.jwt",
+      "name": "jwt.verify",
+      "kind": "function",
+      "syntax": "jwt.verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): JwtPayload | string",
+      "return_type": "JwtPayload | string",
+      "description": "Verifies the cryptographic signature of the token and decodes the payload, rejecting expired or tampered tokens.",
+      "is_static": true,
+      "is_async": false,
+      "is_deprecated": false,
+      "parameters": [
+        {
+          "id": "authentication.tokens.jwt.verify.param.token",
+          "symbol_id": "authentication.tokens.jwt.verify",
+          "name": "token",
+          "data_type": "string",
+          "is_required": true,
+          "is_optional": false,
+          "is_named": false,
+          "description": "The raw incoming Bearer token string.",
+          "sort_order": 1
+        }
+      ],
+      "sort_order": 2
+    }
+  ],
+  "examples": [
+    {
+      "id": "authentication.tokens.jwt.example.sign_verify",
+      "document_id": "authentication.tokens.jwt",
+      "symbol_id": "authentication.tokens.jwt.sign",
+      "title": "JWT Generation and Verification Workflow",
+      "description": "Issuing a short-lived access token and verifying authorization headers.",
+      "code": "import jwt from 'jsonwebtoken';\n\nconst SECRET = process.env.JWT_SECRET || 'secret-key';\n\n// 1. Issue Token\nexport function issueToken(userId: string): string {\n  return jwt.sign({ sub: userId, role: 'developer' }, SECRET, {\n    expiresIn: '15m',\n    issuer: 'udke-auth',\n  });\n}\n\n// 2. Verify Token\nexport function verifyToken(token: string) {\n  try {\n    return jwt.verify(token, SECRET);\n  } catch (err) {\n    throw new Error('Invalid or expired authentication token');\n  }\n}",
+      "language": "typescript",
+      "expected_output": "{ sub: 'user_123', role: 'developer', iat: 1700000000, exp: 1700000900 }",
+      "source_attribution": "RFC 7519 Specification",
+      "sort_order": 1
+    }
+  ],
+  "pipelines": [
+    {
+      "id": "authentication.tokens.jwt.pipeline.stateless_auth",
+      "document_id": "authentication.tokens.jwt",
+      "name": "Stateless JWT Authentication Pipeline",
+      "description": "Complete authentication cycle: Login -> Token Issuance -> Header Attachment -> Verification -> Route Authorization.",
+      "objective": "Authenticate HTTP requests without maintaining server-side session memory or database read locks.",
+      "steps": [
+        {
+          "id": "authentication.tokens.jwt.pipeline.step.1",
+          "pipeline_id": "authentication.tokens.jwt.pipeline.stateless_auth",
+          "step_number": 1,
+          "title": "Validate Credentials",
+          "explanation": "Verify user username/password via Argon2 or bcrypt.",
+          "input_data": "Login credentials",
+          "output_data": "Authenticated User Entity",
+          "syntax": "argon2.verify(hash, password)",
+          "sort_order": 1
+        },
+        {
+          "id": "authentication.tokens.jwt.pipeline.step.2",
+          "pipeline_id": "authentication.tokens.jwt.pipeline.stateless_auth",
+          "step_number": 2,
+          "title": "Sign JWT Payload",
+          "explanation": "Create an access token with subject identifier, role claims, and 15-minute expiration.",
+          "input_data": "User ID & Secret",
+          "output_data": "Encoded JWT string",
+          "syntax": "jwt.sign({ sub: userId }, secret, { expiresIn: '15m' })",
+          "sort_order": 2
+        },
+        {
+          "id": "authentication.tokens.jwt.pipeline.step.3",
+          "pipeline_id": "authentication.tokens.jwt.pipeline.stateless_auth",
+          "step_number": 3,
+          "title": "Attach Authorization Header",
+          "explanation": "Client sends token on protected API requests using standard header: Authorization: Bearer <token>.",
+          "input_data": "JWT token",
+          "output_data": "HTTP Request with Bearer header",
+          "syntax": "headers: { 'Authorization': `Bearer ${token}` }",
+          "sort_order": 3
+        },
+        {
+          "id": "authentication.tokens.jwt.pipeline.step.4",
+          "pipeline_id": "authentication.tokens.jwt.pipeline.stateless_auth",
+          "step_number": 4,
+          "title": "Verify Signature & Authorize",
+          "explanation": "Middleware intercepts request, verifies cryptographic signature, checks expiration, and attaches user to request context.",
+          "input_data": "Incoming Bearer header",
+          "output_data": "Verified request context or 401 Unauthorized",
+          "syntax": "req.user = jwt.verify(token, secret);",
+          "sort_order": 4
+        }
+      ],
+      "sort_order": 1
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel.jwt.oauth",
+      "source_doc_id": "authentication.tokens.jwt",
+      "target_doc_id": "authentication.oauth2",
+      "relationship_type": "used_by",
+      "description": "JWT format is frequently used for OAuth 2.0 access and ID tokens"
+    }
+  ],
+  "metadata": {
+    "source_url": "https://datatracker.ietf.org/doc/html/rfc7519",
+    "license": "IETF",
+    "documentation_version": "RFC-7519",
+    "completeness_status": "complete",
+    "last_verified": "2026-11-19"
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "version": "2.0.0",
+  "generated_at": "2026-11-19T11:30:00Z",
+  "domains": [
+    {
+      "id": "domain.languages",
+      "name": "Programming Languages",
+      "slug": "languages",
+      "description": "Core syntax, runtimes, and standard libraries for modern languages"
+    },
+    {
+      "id": "domain.frontend",
+      "name": "Frontend Development",
+      "slug": "frontend",
+      "description": "Web frameworks, styling systems, and client-side architecture"
+    },
+    {
+      "id": "domain.backend",
+      "name": "Backend Development",
+      "slug": "backend",
+      "description": "Server runtimes, HTTP frameworks, and enterprise architectures"
+    },
+    {
+      "id": "domain.mobile",
+      "name": "Mobile Development",
+      "slug": "mobile",
+      "description": "Cross-platform and native mobile frameworks and UI kits"
+    },
+    {
+      "id": "domain.databases",
+      "name": "Databases & Storage",
+      "slug": "databases",
+      "description": "Relational, document, key-value, and distributed storage engines"
+    },
+    {
+      "id": "domain.authentication",
+      "name": "Authentication & Security",
+      "slug": "authentication",
+      "description": "Identity protocols, cryptography, hashing, and access control"
+    },
+    {
+      "id": "domain.apis",
+      "name": "APIs & Communication",
+      "slug": "apis",
+      "description": "Network protocols, RPC, WebSockets, and messaging architectures"
+    },
+    {
+      "id": "domain.devops",
+      "name": "DevOps & Infrastructure",
+      "slug": "devops",
+      "description": "Containerization, orchestration, CI/CD, and cloud infrastructure"
+    },
+    {
+      "id": "domain.architecture",
+      "name": "Architecture & Design",
+      "slug": "architecture",
+      "description": "Design patterns, domain-driven design, and system architecture"
+    },
+    {
+      "id": "domain.testing",
+      "name": "Testing & Debugging",
+      "slug": "testing",
+      "description": "Unit, integration, E2E testing, profiling, and benchmarking"
+    },
+    {
+      "id": "domain.ai-ml",
+      "name": "AI & Machine Learning",
+      "slug": "ai-ml",
+      "description": "Machine learning libraries, neural networks, LLMs, and RAG systems"
+    },
+    {
+      "id": "domain.tools",
+      "name": "Tools & Environments",
+      "slug": "tools",
+      "description": "IDEs, editors, developer tooling, and build systems"
+    }
+  ],
+  "packs": [
+    {
+      "id": "pack.backend.nodejs",
+      "domain_id": "domain.backend",
+      "technology": "Node.js",
+      "name": "Node.js Complete Reference Pack",
+      "version": "20.x",
+      "status": "installed",
+      "license": "MIT",
+      "record_count": 1,
+      "size_bytes": 12450,
+      "path": "knowledge/backend/nodejs/pack.json"
+    },
+    {
+      "id": "pack.mobile.flutter",
+      "domain_id": "domain.mobile",
+      "technology": "Flutter",
+      "name": "Flutter Core UI & Widgets Pack",
+      "version": "3.x",
+      "status": "installed",
+      "license": "BSD-3-Clause",
+      "record_count": 1,
+      "size_bytes": 11800,
+      "path": "knowledge/mobile/flutter/pack.json"
+    },
+    {
+      "id": "pack.languages.dart",
+      "domain_id": "domain.languages",
+      "technology": "Dart",
+      "name": "Dart Language & Async Patterns Pack",
+      "version": "3.x",
+      "status": "installed",
+      "license": "BSD-3-Clause",
+      "record_count": 1,
+      "size_bytes": 9800,
+      "path": "knowledge/languages/dart/pack.json"
+    },
+    {
+      "id": "pack.databases.sqlite",
+      "domain_id": "domain.databases",
+      "technology": "SQLite",
+      "name": "SQLite Architecture & Engine Pack",
+      "version": "3.45.x",
+      "status": "installed",
+      "license": "Public Domain",
+      "record_count": 1,
+      "size_bytes": 10500,
+      "path": "knowledge/databases/sqlite/pack.json"
+    },
+    {
+      "id": "pack.authentication.jwt",
+      "domain_id": "domain.authentication",
+      "technology": "JWT",
+      "name": "JSON Web Tokens (JWT) Architecture Pack",
+      "version": "RFC 7519",
+      "status": "installed",
+      "license": "IETF",
+      "record_count": 1,
+      "size_bytes": 11200,
+      "path": "knowledge/authentication/jwt/pack.json"
+    }
+  ]
+}

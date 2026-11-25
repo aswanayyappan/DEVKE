@@ -1,0 +1,177 @@
+{
+  "id": "flutter.material.scaffold",
+  "title": "Scaffold",
+  "slug": "scaffold",
+  "type": "class",
+  "language": "Dart",
+  "runtime": "Flutter",
+  "categories": [
+    "Mobile Development",
+    "Flutter",
+    "UI and Design Systems",
+    "Material Design"
+  ],
+  "package": {
+    "name": "flutter",
+    "manager": "pub.dev",
+    "installation": "flutter pub add flutter",
+    "repository_url": "https://github.com/flutter/flutter",
+    "documentation_url": "https://api.flutter.dev/flutter/material/Scaffold-class.html",
+    "license": "BSD-3-Clause"
+  },
+  "documentation": {
+    "overview": "Scaffold implements the basic Material Design visual layout structure. This class provides APIs for showing app bars, navigation drawers, floating action buttons, persistent bottom sheets, and snack bars.",
+    "purpose": "Acts as the primary top-level visual container for screens and pages in a Flutter Material application.",
+    "installation": "Included in the Flutter SDK by default via `import 'package:flutter/material.dart';`",
+    "configuration": "Configure properties including appBar, body, floatingActionButton, drawer, bottomNavigationBar, and backgroundColor.",
+    "security_considerations": "Ensure modal bottom sheets or overlays attached to Scaffold do not leak sensitive state or remain dismissable during sensitive transactional flows.",
+    "error_handling": "Calling ScaffoldMessenger.of(context) requires a BuildContext below the Scaffold or ScaffoldMessenger ancestor."
+  },
+  "symbols": [
+    {
+      "id": "flutter.material.scaffold.constructor",
+      "document_id": "flutter.material.scaffold",
+      "name": "Scaffold",
+      "kind": "constructor",
+      "syntax": "const Scaffold({\n  Key? key,\n  PreferredSizeWidget? appBar,\n  Widget? body,\n  Widget? floatingActionButton,\n  FloatingActionButtonLocation? floatingActionButtonLocation,\n  Widget? drawer,\n  Widget? bottomNavigationBar,\n  Widget? bottomSheet,\n  Color? backgroundColor,\n  bool? resizeToAvoidBottomInset,\n})",
+      "return_type": "Scaffold",
+      "description": "Creates a visual scaffold for Material Design widgets.",
+      "is_static": false,
+      "is_async": false,
+      "is_deprecated": false,
+      "parameters": [
+        {
+          "id": "flutter.material.scaffold.param.appBar",
+          "symbol_id": "flutter.material.scaffold.constructor",
+          "name": "appBar",
+          "data_type": "PreferredSizeWidget?",
+          "is_required": false,
+          "is_optional": true,
+          "is_named": true,
+          "description": "An app bar to display at the top of the scaffold.",
+          "sort_order": 1
+        },
+        {
+          "id": "flutter.material.scaffold.param.body",
+          "symbol_id": "flutter.material.scaffold.constructor",
+          "name": "body",
+          "data_type": "Widget?",
+          "is_required": false,
+          "is_optional": true,
+          "is_named": true,
+          "description": "The primary content displayed in the scaffold below the appBar.",
+          "sort_order": 2
+        },
+        {
+          "id": "flutter.material.scaffold.param.floatingActionButton",
+          "symbol_id": "flutter.material.scaffold.constructor",
+          "name": "floatingActionButton",
+          "data_type": "Widget?",
+          "is_required": false,
+          "is_optional": true,
+          "is_named": true,
+          "description": "A button displayed floating above body, in the bottom right corner by default.",
+          "sort_order": 3
+        },
+        {
+          "id": "flutter.material.scaffold.param.bottomNavigationBar",
+          "symbol_id": "flutter.material.scaffold.constructor",
+          "name": "bottomNavigationBar",
+          "data_type": "Widget?",
+          "is_required": false,
+          "is_optional": true,
+          "is_named": true,
+          "description": "A navigation bar to display at the bottom of the scaffold.",
+          "sort_order": 4
+        }
+      ],
+      "sort_order": 1
+    }
+  ],
+  "examples": [
+    {
+      "id": "flutter.material.scaffold.example.basic",
+      "document_id": "flutter.material.scaffold",
+      "symbol_id": "flutter.material.scaffold.constructor",
+      "title": "Basic Material Page Layout",
+      "description": "Standard screen layout with an AppBar, Body centered text, and FloatingActionButton.",
+      "code": "import 'package:flutter/material.dart';\n\nclass HomeScreen extends StatelessWidget {\n  const HomeScreen({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      appBar: AppBar(\n        title: const Text('DevReference Home'),\n      ),\n      body: const Center(\n        child: Text('Universal Documentation Engine'),\n      ),\n      floatingActionButton: FloatingActionButton(\n        onPressed: () {\n          ScaffoldMessenger.of(context).showSnackBar(\n            const SnackBar(content: Text('Action executed')),\n          );\n        },\n        child: const Icon(Icons.search),\n      ),\n    );\n  }\n}",
+      "language": "dart",
+      "expected_output": "Renders standard Material UI screen with AppBar and FAB.",
+      "source_attribution": "Official Flutter API documentation",
+      "sort_order": 1
+    }
+  ],
+  "pipelines": [
+    {
+      "id": "flutter.material.scaffold.pipeline.screen",
+      "document_id": "flutter.material.scaffold",
+      "name": "Material Screen Construction Pipeline",
+      "description": "Standard architectural sequence for assembling a responsive, accessible Material Design screen in Flutter.",
+      "objective": "Assemble layout hierarchy with navigation, action dispatching, and theme consistency.",
+      "steps": [
+        {
+          "id": "flutter.material.scaffold.pipeline.step.1",
+          "pipeline_id": "flutter.material.scaffold.pipeline.screen",
+          "step_number": 1,
+          "title": "Define Screen Widget",
+          "explanation": "Create a StatelessWidget or StatefulWidget representing the target route.",
+          "input_data": "Route parameters or view model",
+          "output_data": "Widget class declaration",
+          "syntax": "class MyScreen extends StatelessWidget",
+          "sort_order": 1
+        },
+        {
+          "id": "flutter.material.scaffold.pipeline.step.2",
+          "pipeline_id": "flutter.material.scaffold.pipeline.screen",
+          "step_number": 2,
+          "title": "Return Scaffold Container",
+          "explanation": "Return a Scaffold widget as the root of the build method tree.",
+          "input_data": "BuildContext context",
+          "output_data": "Scaffold widget instance",
+          "syntax": "return Scaffold(appBar: ..., body: ...);",
+          "sort_order": 2
+        },
+        {
+          "id": "flutter.material.scaffold.pipeline.step.3",
+          "pipeline_id": "flutter.material.scaffold.pipeline.screen",
+          "step_number": 3,
+          "title": "Configure App Bar and Navigation",
+          "explanation": "Attach an AppBar with title, actions, and leading navigation buttons.",
+          "input_data": "Title string and IconButtons",
+          "output_data": "PreferredSizeWidget",
+          "syntax": "AppBar(title: Text('Title'), actions: [...])",
+          "sort_order": 3
+        },
+        {
+          "id": "flutter.material.scaffold.pipeline.step.4",
+          "pipeline_id": "flutter.material.scaffold.pipeline.screen",
+          "step_number": 4,
+          "title": "Mount Responsive Body Content",
+          "explanation": "Provide scrollable content (e.g. ListView, CustomScrollView) to avoid layout overflows on small displays.",
+          "input_data": "Child widgets or Sliver lists",
+          "output_data": "Mounted body widget",
+          "syntax": "body: SafeArea(child: ListView(...))",
+          "sort_order": 4
+        }
+      ],
+      "sort_order": 1
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel.scaffold.appbar",
+      "source_doc_id": "flutter.material.scaffold",
+      "target_doc_id": "flutter.material.appbar",
+      "relationship_type": "requires",
+      "description": "Scaffold hosts AppBar as top preferred-size header"
+    }
+  ],
+  "metadata": {
+    "source_url": "https://api.flutter.dev/flutter/material/Scaffold-class.html",
+    "license": "BSD-3-Clause",
+    "documentation_version": "3.22.0",
+    "completeness_status": "complete",
+    "last_verified": "2026-11-19"
+  }
+}

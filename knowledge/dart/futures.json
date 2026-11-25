@@ -1,0 +1,181 @@
+{
+  "id": "dart.core.future",
+  "title": "Future",
+  "slug": "future",
+  "type": "class",
+  "language": "Dart",
+  "runtime": "Dart VM",
+  "categories": [
+    "Programming Languages",
+    "Dart",
+    "Asynchronous Programming",
+    "Core Libraries"
+  ],
+  "package": {
+    "name": "dart:async",
+    "manager": "pub.dev",
+    "installation": "Built-in to Dart SDK (`import 'dart:async';`)",
+    "repository_url": "https://github.com/dart-lang/sdk",
+    "documentation_url": "https://api.dart.dev/stable/dart-async/Future-class.html",
+    "license": "BSD-3-Clause"
+  },
+  "documentation": {
+    "overview": "A Future represents a computation that doesn't complete immediately. Where a normal function returns the result directly, an asynchronous function returns a Future, which eventually contains the result or an error.",
+    "purpose": "Primary abstraction for non-blocking I/O operations, network requests, file reading, and timers.",
+    "installation": "Available by default in `dart:core` without explicit import requirements.",
+    "configuration": "Configurable through Future constructors like Future.delayed, Future.wait, and Future.value.",
+    "security_considerations": "Always handle errors on uncompleted Futures using try/catch with await or .catchError to prevent unhandled asynchronous exceptions from crashing the isolate.",
+    "error_handling": "Errors thrown in async functions are captured and returned in the Future error channel."
+  },
+  "symbols": [
+    {
+      "id": "dart.core.future.delayed",
+      "document_id": "dart.core.future",
+      "name": "Future.delayed",
+      "kind": "constructor",
+      "syntax": "Future<T>.delayed(Duration duration, [FutureOr<T> Function()? computation])",
+      "return_type": "Future<T>",
+      "description": "Creates a future that runs its computation after a specified duration delay.",
+      "is_static": true,
+      "is_async": false,
+      "is_deprecated": false,
+      "parameters": [
+        {
+          "id": "dart.core.future.delayed.param.duration",
+          "symbol_id": "dart.core.future.delayed",
+          "name": "duration",
+          "data_type": "Duration",
+          "is_required": true,
+          "is_optional": false,
+          "is_named": false,
+          "description": "The amount of time to wait before running the computation.",
+          "sort_order": 1
+        },
+        {
+          "id": "dart.core.future.delayed.param.computation",
+          "symbol_id": "dart.core.future.delayed",
+          "name": "computation",
+          "data_type": "FutureOr<T> Function()?",
+          "is_required": false,
+          "is_optional": true,
+          "is_named": false,
+          "description": "Optional callback to execute after the delay completes.",
+          "sort_order": 2
+        }
+      ],
+      "sort_order": 1
+    },
+    {
+      "id": "dart.core.future.wait",
+      "document_id": "dart.core.future",
+      "name": "Future.wait",
+      "kind": "method",
+      "syntax": "static Future<List<T>> wait<T>(Iterable<Future<T>> futures, {bool eagerError = false, void Function(T)? cleanUp})",
+      "return_type": "Future<List<T>>",
+      "description": "Waits for multiple futures to complete and collects their results in order.",
+      "is_static": true,
+      "is_async": true,
+      "is_deprecated": false,
+      "parameters": [
+        {
+          "id": "dart.core.future.wait.param.futures",
+          "symbol_id": "dart.core.future.wait",
+          "name": "futures",
+          "data_type": "Iterable<Future<T>>",
+          "is_required": true,
+          "is_optional": false,
+          "is_named": false,
+          "description": "A collection of futures to wait for.",
+          "sort_order": 1
+        }
+      ],
+      "sort_order": 2
+    }
+  ],
+  "examples": [
+    {
+      "id": "dart.core.future.example.basic",
+      "document_id": "dart.core.future",
+      "symbol_id": "dart.core.future.delayed",
+      "title": "Asynchronous Data Fetching Pattern",
+      "description": "Using async/await with try-catch for non-blocking I/O.",
+      "code": "Future<String> fetchUserGreeting(String userId) async {\n  try {\n    // Simulate network delay\n    await Future.delayed(const Duration(milliseconds: 500));\n    return 'Hello, User $userId!';\n  } catch (e) {\n    return 'Unable to fetch greeting: $e';\n  }\n}",
+      "language": "dart",
+      "expected_output": "Hello, User 42!",
+      "source_attribution": "Official Dart Language Tour",
+      "sort_order": 1
+    }
+  ],
+  "pipelines": [
+    {
+      "id": "dart.core.future.pipeline.async_fetch",
+      "document_id": "dart.core.future",
+      "name": "Asynchronous Data Fetching Pipeline",
+      "description": "Standard pattern for initiating, awaiting, error-handling, and consuming async operations in Dart.",
+      "objective": "Execute network or database requests without blocking the UI isolate event loop.",
+      "steps": [
+        {
+          "id": "dart.core.future.pipeline.step.1",
+          "pipeline_id": "dart.core.future.pipeline.async_fetch",
+          "step_number": 1,
+          "title": "Mark function async",
+          "explanation": "Annotate the function signature with async and return a Future<T>.",
+          "input_data": "Function parameters",
+          "output_data": "Future<T> wrapper",
+          "syntax": "Future<Result> fetchData() async",
+          "sort_order": 1
+        },
+        {
+          "id": "dart.core.future.pipeline.step.2",
+          "pipeline_id": "dart.core.future.pipeline.async_fetch",
+          "step_number": 2,
+          "title": "Wrap in try-catch block",
+          "explanation": "Ensure network timeouts and socket errors are caught within the isolate context.",
+          "input_data": "Execution block",
+          "output_data": "Guarded scope",
+          "syntax": "try { ... } catch (err) { ... }",
+          "sort_order": 2
+        },
+        {
+          "id": "dart.core.future.pipeline.step.3",
+          "pipeline_id": "dart.core.future.pipeline.async_fetch",
+          "step_number": 3,
+          "title": "Await the asynchronous operation",
+          "explanation": "Use await to suspend execution of this function until the Future yields a value.",
+          "input_data": "Future<Response>",
+          "output_data": "Unwrapped Response data",
+          "syntax": "final response = await client.get(uri);",
+          "sort_order": 3
+        },
+        {
+          "id": "dart.core.future.pipeline.step.4",
+          "pipeline_id": "dart.core.future.pipeline.async_fetch",
+          "step_number": 4,
+          "title": "Return parsed result",
+          "explanation": "Transform raw response into typed model and return.",
+          "input_data": "Raw payload",
+          "output_data": "Domain model instance",
+          "syntax": "return UserModel.fromJson(data);",
+          "sort_order": 4
+        }
+      ],
+      "sort_order": 1
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel.future.stream",
+      "source_doc_id": "dart.core.future",
+      "target_doc_id": "dart.core.stream",
+      "relationship_type": "alternative_to",
+      "description": "Futures represent single asynchronous values, while Streams represent sequences of asynchronous events"
+    }
+  ],
+  "metadata": {
+    "source_url": "https://api.dart.dev/stable/dart-async/Future-class.html",
+    "license": "BSD-3-Clause",
+    "documentation_version": "3.4.0",
+    "completeness_status": "complete",
+    "last_verified": "2026-11-19"
+  }
+}

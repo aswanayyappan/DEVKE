@@ -1,0 +1,11 @@
+{
+  "id": "pack.mobile.flutter",
+  "name": "Flutter Core UI & Widgets Pack",
+  "domain": "mobile",
+  "technology": "Flutter",
+  "version": "3.x",
+  "license": "BSD-3-Clause",
+  "records": [
+    "scaffold.json"
+  ]
+}

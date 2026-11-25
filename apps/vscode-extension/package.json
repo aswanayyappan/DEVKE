@@ -1,0 +1,132 @@
+{
+  "name": "udke-vscode-extension",
+  "displayName": "DevKE",
+  "description": "DevKE (Developer Knowledge Engine) — Universal Developer Documentation and Offline Knowledge Explorer",
+  "version": "0.1.0",
+  "publisher": "udke",
+  "license": "MIT",
+  "icon": "resources/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aswanayyappan/DEVKE"
+  },
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "udke-reference",
+          "title": "DevReference",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "udke-reference": [
+        {
+          "id": "udke.explorer",
+          "name": "Knowledge Explorer",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "udke.search",
+        "title": "DevReference: Global Documentation Search",
+        "category": "DevReference",
+        "icon": "resources/search.svg"
+      },
+      {
+        "command": "udke.managePacks",
+        "title": "DevReference: Manage Offline Documentation Packs",
+        "category": "DevReference",
+        "icon": "resources/download.svg"
+      },
+      {
+        "command": "udke.lookupSelection",
+        "title": "DevReference: Lookup Documentation for Selected Symbol",
+        "category": "DevReference"
+      },
+      {
+        "command": "udke.copyAIContext",
+        "title": "DevReference: Copy Grounded AI Context Prompt to Clipboard",
+        "category": "DevReference"
+      },
+      {
+        "command": "udke.openDocument",
+        "title": "DevReference: Open Documentation Record",
+        "category": "DevReference"
+      },
+      {
+        "command": "udke.refreshExplorer",
+        "title": "DevReference: Refresh Documentation",
+        "icon": "resources/refresh.svg"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "udke.search",
+        "key": "ctrl+alt+k",
+        "mac": "cmd+alt+k"
+      },
+      {
+        "command": "udke.lookupSelection",
+        "key": "ctrl+alt+d",
+        "mac": "cmd+alt+d",
+        "when": "editorHasSelection"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "udke.search",
+          "when": "view == udke.explorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "udke.managePacks",
+          "when": "view == udke.explorer",
+          "group": "navigation@2"
+        },
+        {
+          "command": "udke.refreshExplorer",
+          "when": "view == udke.explorer",
+          "group": "navigation@3"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "udke.lookupSelection",
+          "group": "navigation@100"
+        },
+        {
+          "command": "udke.copyAIContext",
+          "group": "navigation@101"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "watch": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --watch",
+    "package": "vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "@udke/knowledge-schema": "*",
+    "@udke/search-engine": "*"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.88.0",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pack.databases.sqlite",
+  "name": "SQLite Architecture & Engine Pack",
+  "domain": "databases",
+  "technology": "SQLite",
+  "version": "3.45.x",
+  "license": "Public Domain",
+  "records": [
+    "sqlite.json"
+  ]
+}
