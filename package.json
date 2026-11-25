@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build --workspace=@udke/knowledge-schema && npm run build --workspace=@udke/document-parser && npm run build --workspace=@udke/search-engine && npm run build --workspace=@udke/source-connectors && npm run build --workspace=@udke/knowledge-cli && npm run compile --workspace=udke-vscode-extension",
     "test": "node --experimental-strip-types tests/vertical-slice.test.ts && node --experimental-strip-types tests/multi-ecosystem.test.ts && node --experimental-strip-types tests/ai-grounding.test.ts",
     "lint": "npm run lint --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present"

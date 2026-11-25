@@ -2,7 +2,7 @@
   "name": "udke-vscode-extension",
   "displayName": "DevKE",
   "description": "DevKE (Developer Knowledge Engine) — Universal Developer Documentation and Offline Knowledge Explorer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "udke",
   "license": "MIT",
   "icon": "resources/icon.png",
