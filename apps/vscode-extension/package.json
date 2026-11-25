@@ -33,7 +33,7 @@
       "udke-reference": [
         {
           "id": "udke.explorer",
-          "name": "Knowledge Explorer",
+          "name": "DevReference",
           "icon": "resources/icon.svg"
         }
       ]
