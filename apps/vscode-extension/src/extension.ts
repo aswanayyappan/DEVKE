@@ -16,7 +16,16 @@ export function activate(context: vscode.ExtensionContext): void {
   const dbDir = context.globalStorageUri?.fsPath || path.resolve(context.extensionPath, 'storage/database');
   const dbPath = path.join(dbDir, 'udke.db');
 
-  dbInstance = new KnowledgeDatabase({ dbPath });
+  try {
+    dbInstance = new KnowledgeDatabase({ dbPath });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('[DevKE] Failed to initialize knowledge database:', err);
+    void vscode.window.showErrorMessage(
+      `DevKE failed to initialize its local SQLite database (requires VS Code 1.100+ / Node 22+): ${message}`
+    );
+    return;
+  }
   const knowledgeEngine = new KnowledgeRepository(dbInstance.getRawDatabase());
 
   // 2. Ingest All Installed Starter Knowledge Packs

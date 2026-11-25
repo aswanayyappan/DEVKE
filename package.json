@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present",
+    "test": "node --experimental-strip-types tests/vertical-slice.test.ts && node --experimental-strip-types tests/multi-ecosystem.test.ts && node --experimental-strip-types tests/ai-grounding.test.ts",
     "lint": "npm run lint --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present"
   },

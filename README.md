@@ -34,10 +34,10 @@ universal-dev-knowledge-engine/
 
 ## 2. Key Documentation
 
-* [PRD.md](file:///c:/Users/renji/Documents/Aswan%20programing/vs%20code%20extenstion/PRD.md): Product Requirements Document detailing vision, requirements, and taxonomy.
-* [AGENTS.md](file:///c:/Users/renji/Documents/Aswan%20programing/vs%20code%20extenstion/AGENTS.md): Engineering rules and consistency guidelines for AI agents working on this codebase.
-* [ARCHITECTURE.md](file:///c:/Users/renji/Documents/Aswan%20programing/vs%20code%20extenstion/ARCHITECTURE.md): Technical architecture, package boundaries, data flows, and schema design.
-* [TRACKER.md](file:///c:/Users/renji/Documents/Aswan%20programing/vs%20code%20extenstion/TRACKER.md): Active progress tracker and milestone roadmap.
+* [PRD.md](./PRD.md): Product Requirements Document detailing vision, requirements, and taxonomy.
+* [AGENTS.md](./AGENTS.md): Engineering rules and consistency guidelines for AI agents working on this codebase.
+* [ARCHITECTURE.md](./ARCHITECTURE.md): Technical architecture, package boundaries, data flows, and schema design.
+* [TRACKER.md](./TRACKER.md): Active progress tracker and milestone roadmap.
 
 ---
 
@@ -54,4 +54,4 @@ universal-dev-knowledge-engine/
 
 ## 4. Contributing & Agent Directives
 
-All contributors and AI agents must review and strictly abide by the rules laid out in [AGENTS.md](file:///c:/Users/renji/Documents/Aswan%20programing/vs%20code%20extenstion/AGENTS.md).
+All contributors and AI agents must review and strictly abide by the rules laid out in [AGENTS.md](./AGENTS.md).

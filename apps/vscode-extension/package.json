@@ -2,7 +2,7 @@
   "name": "udke-vscode-extension",
   "displayName": "DevKE",
   "description": "DevKE (Developer Knowledge Engine) — Universal Developer Documentation and Offline Knowledge Explorer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "udke",
   "license": "MIT",
   "icon": "resources/icon.png",
@@ -11,7 +11,7 @@
     "url": "https://github.com/aswanayyappan/DEVKE"
   },
   "engines": {
-    "vscode": "^1.88.0"
+    "vscode": "^1.100.0"
   },
   "categories": [
     "Programming Languages",
@@ -24,7 +24,7 @@
       "activitybar": [
         {
           "id": "udke-reference",
-          "title": "DevReference",
+          "title": "DevKE",
           "icon": "resources/icon.svg"
         }
       ]
@@ -41,34 +41,34 @@
     "commands": [
       {
         "command": "udke.search",
-        "title": "DevReference: Global Documentation Search",
-        "category": "DevReference",
+        "title": "DevKE: Global Documentation Search",
+        "category": "DevKE",
         "icon": "resources/search.svg"
       },
       {
         "command": "udke.managePacks",
-        "title": "DevReference: Manage Offline Documentation Packs",
-        "category": "DevReference",
+        "title": "DevKE: Manage Offline Documentation Packs",
+        "category": "DevKE",
         "icon": "resources/download.svg"
       },
       {
         "command": "udke.lookupSelection",
-        "title": "DevReference: Lookup Documentation for Selected Symbol",
-        "category": "DevReference"
+        "title": "DevKE: Lookup Documentation for Selected Symbol",
+        "category": "DevKE"
       },
       {
         "command": "udke.copyAIContext",
-        "title": "DevReference: Copy Grounded AI Context Prompt to Clipboard",
-        "category": "DevReference"
+        "title": "DevKE: Copy Grounded AI Context Prompt to Clipboard",
+        "category": "DevKE"
       },
       {
         "command": "udke.openDocument",
-        "title": "DevReference: Open Documentation Record",
-        "category": "DevReference"
+        "title": "DevKE: Open Documentation Record",
+        "category": "DevKE"
       },
       {
         "command": "udke.refreshExplorer",
-        "title": "DevReference: Refresh Documentation",
+        "title": "DevKE: Refresh Documentation",
         "icon": "resources/refresh.svg"
       }
     ],
